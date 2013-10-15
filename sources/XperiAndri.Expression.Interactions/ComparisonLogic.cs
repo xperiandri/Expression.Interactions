@@ -75,7 +75,16 @@ namespace XperiAndri.Expression.Interactivity
                 {
                     //rightOperand = TypeConverterHelper.DoConversionFrom(TypeConverterHelper.GetTypeConverter(type), rightOperand);
                     if (type.GetTypeInfo().IsEnum && Enum.IsDefined(type, rightOperand))
-                        rightOperand = Enum.ToObject(type, rightOperand);
+                    {
+                        if (rightOperand is string)
+                        {
+                            rightOperand = Enum.Parse(type, (string)rightOperand);
+                        }
+                        else
+                        {
+                            rightOperand = Enum.ToObject(type, rightOperand);
+                        }
+                    }
                 }
             }
 
